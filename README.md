@@ -34,8 +34,8 @@
 
 
 <figure>
-    <img src="images\task_6.png"
-         alt="task_6.py">
+    <img src="images\06_task.png"
+         alt="06_task.py">
     <figcaption>Задание 6*</figcaption>
 </figure>
 
