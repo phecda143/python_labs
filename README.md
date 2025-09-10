@@ -7,7 +7,7 @@
 </figure>
 
 <figure>
-    <img src="images\02_greeting.png"
-         alt="02_greeting.py">
+    <img src="images\02_sum_avg.png"
+         alt="02_sum_avg.py">
     <figcaption>Задание 2 — Сумма и среднее</figcaption>
 </figure>
