@@ -18,3 +18,9 @@
          alt="03_discount_vat.py">
     <figcaption>Задание 3 — Чек: скидка и НДС</figcaption>
 </figure>
+
+<figure>
+    <img src="images\04_minutes_to_hhmm.png"
+         alt="04_minutes_to_hhmm.py">
+    <figcaption>Задание 4 — Минуты → ЧЧ:ММ</figcaption>
+</figure>
