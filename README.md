@@ -11,3 +11,10 @@
          alt="02_sum_avg.py">
     <figcaption>Задание 2 — Сумма и среднее</figcaption>
 </figure>
+
+
+<figure>
+    <img src="images\03_discount_vat.png"
+         alt="03_discount_vat.py">
+    <figcaption>Задание 3 — Чек: скидка и НДС</figcaption>
+</figure>
