@@ -24,3 +24,10 @@
          alt="04_minutes_to_hhmm.py">
     <figcaption>Задание 4 — Минуты → ЧЧ:ММ</figcaption>
 </figure>
+
+
+<figure>
+    <img src="images\05_initials_and_len.png"
+         alt="05_initials_and_len.py">
+    <figcaption>Задание 5 — Инициалы и длина строки</figcaption>
+</figure>
