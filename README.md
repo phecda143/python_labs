@@ -38,3 +38,9 @@
          alt="task_6.py">
     <figcaption>Задание 6*</figcaption>
 </figure>
+
+<figure>
+    <img src="images\07_task.png"
+         alt="07_task.py">
+    <figcaption>Задание 7*</figcaption>
+</figure>
