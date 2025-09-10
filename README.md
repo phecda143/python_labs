@@ -31,3 +31,10 @@
          alt="05_initials_and_len.py">
     <figcaption>Задание 5 — Инициалы и длина строки</figcaption>
 </figure>
+
+
+<figure>
+    <img src="images\task_6.png"
+         alt="task_6.py">
+    <figcaption>Задание 6*</figcaption>
+</figure>
