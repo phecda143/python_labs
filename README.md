@@ -10,7 +10,7 @@ name = input('Имя: ')
 age = int(input('Возраст: '))
 print(f'Привет, {name}! Через год тебе будет {age+1}.')
 ```
-![Картинка 1](.images\01_greeting.png)
+![Картинка 1](./images/lab01/01_greeting.png)
 
 
 ### Задание 2
@@ -19,7 +19,7 @@ num1 = float(input('a: ').replace(',', '.'))
 num2 = float(input('b: ').replace(',', '.'))
 print(f'sum={round(num1+num2, 2)}; avg={round((num1+num2)/2, 2)}')
 ```
-![Картинка 2](.images\02_sum_avg.png)
+![Картинка 2](./images/lab01/02_sum_avg.png)
 
 
 ### Задание 3
@@ -35,7 +35,7 @@ print(f"НДС:               {vat_amount} ₽")
 print(f"Итого к оплате:    {total} ₽")
 
 ```
-![Картинка 3](.images\03_discount_vat.png)
+![Картинка 3](./images/lab01/03_discount_vat.png)
 
 
 ### Задание 4
@@ -43,7 +43,7 @@ print(f"Итого к оплате:    {total} ₽")
 m = int(input('Минуты: '))
 print(f'{m//60}:{(m-(m//60)*60):02d}')
 ```
-![Картинка 4](.images\04_minutes_to_hhmm.png)
+![Картинка 4](./images/lab01/04_minutes_to_hhmm.png)
 
 
 ### Задание 5
@@ -53,7 +53,7 @@ print(f'Инициалы: {name[0][0]}{name[1][0]}{name[2][0]}')
 print(f'Длина (символов): {sum(map(len, name))+2}')
 
 ```
-![Картинка 5](.images\05_initials_and_len.png)
+![Картинка 5](./images/lab01/05_initials_and_len.png)
 
 
 ### Задание 6
@@ -69,7 +69,7 @@ for i in range(n):
         distance += 1
 print(full_time, distance)
 ```
-![Картинка 6](.images\06_task.png
+![Картинка 6](./images/lab01/06_task.png)
 
 
 ### Задание 7
@@ -88,5 +88,5 @@ for i, char in enumerate(s):
 print(s[first_letter_pos:-1:second_letter_pos - first_letter_pos] + '.')
 
 ```
-![Картинка 7](.images\07_task.png)
+![Картинка 7](./images/lab01/07_task.png)
 
