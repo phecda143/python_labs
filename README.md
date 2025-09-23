@@ -90,3 +90,33 @@ print(s[first_letter_pos:-1:second_letter_pos - first_letter_pos] + '.')
 ```
 ![Картинка 7](./images/lab01/07_task.png)
 
+
+
+## Лабораторная работа 2
+
+### Задание 1
+```python
+def min_max(nums):
+    if isinstance(nums, list) and len(nums)!=0\
+            and all(isinstance(item, (int, float)) for item in nums):
+        return min(nums), max(nums)
+    return 'ValueError'
+
+
+def unique_sorted(nums):
+    if isinstance(nums, list) and len(nums) != 0 \
+            and all(isinstance(item, (int, float)) for item in nums):
+        return sorted(set(nums))
+    return nums
+
+
+def flatten(mat):
+    if isinstance(mat, (list, tuple)) and len(mat) != 0 \
+            and all(isinstance(item, (list, tuple)) for item in mat):
+        result = []
+        for item in mat:
+            result.extend(item)
+        return result
+    return 'TypeError'
+```
+![Картинка 2.1](./images/lab02/arrays.png)
