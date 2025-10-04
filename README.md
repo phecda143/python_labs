@@ -162,4 +162,23 @@ def col_sums(mat):
         result.append(sum_col)
     return result
 ```
-![Картинка 2.2](./images/lab02/matrix.png)
+![Картинка 2.2](./images/lab02/arrays.png)
+
+### Задание 3
+```python
+def format_record(rec):
+    if isinstance(rec, tuple):
+        if isinstance(rec[0], str) and isinstance(rec[1], str) and isinstance(rec[2], float):
+            name = rec[0].split()
+            full_name = name[0][0].upper() + name[0][1:] + ' '
+            for initials in name[1:]:
+                full_name += initials[0].upper() + '.'
+            return f'{full_name}, гр. {rec[1]}, GPA {"{:.2f}".format(rec[2])}'
+        if len(rec[0]) == 0 or len(rec[1]) == 0:
+            '''пустое ФИО и пустая группа имеет аргумент правильного типа поэтому ValueError'''
+            return 'ValueError'
+        if type(rec[2]) is not float:
+            '''неверный тип GPA имеет несоответствующий типа(например int вместо float поэтому TypeError'''
+            return 'TypeError'
+```
+![Картинка 2.3](./images/lab02/tuples.png)
