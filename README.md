@@ -120,3 +120,46 @@ def flatten(mat):
     return 'TypeError'
 ```
 ![Картинка 2.1](./images/lab02/arrays.png)
+
+### Задание 2
+```python
+def transpose(mat):
+    if len(mat) == 0:
+        return []
+    if isinstance(mat, list) and all(isinstance(row, list) for row in mat) and all(
+            isinstance(item, (int, float)) for row in mat for item in row):
+        row_lengths = [len(str(row)) for row in mat]
+        if len(set(row_lengths)) != 1:
+            return 'ValueError'
+
+        return [[mat[j][i] for j in range(len(mat))] for i in range(len(mat[0]))]
+
+
+def row_sums(mat):
+    if len(mat) == 0:
+        return []
+    if isinstance(mat, list) and all(isinstance(row, list) for row in mat) \
+            and all(isinstance(item, (int, float)) for row in mat for item in row):
+        row_lengths = [len(row) for row in mat]
+        if len(set(row_lengths)) != 1:
+            return 'ValueError'
+        return [sum(item) for item in mat]
+
+
+def col_sums(mat):
+    if len(mat) == 0:
+        return []
+    if isinstance(mat, list) and all(isinstance(row, list) for row in mat) \
+            and all(isinstance(item, (int, float)) for row in mat for item in row):
+        row_lengths = [len(row) for row in mat]
+        if len(set(row_lengths)) != 1:
+            return 'ValueError'
+    result = []
+    for col_index in range(len(mat[0])):
+        sum_col = 0
+        for row in mat:
+            sum_col += row[col_index]
+        result.append(sum_col)
+    return result
+```
+![Картинка 2.2](./images/lab02/matrix.png)

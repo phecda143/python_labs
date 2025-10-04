@@ -1,5 +1,5 @@
 def min_max(nums):
-    if isinstance(nums, list) and len(nums)!=0\
+    if isinstance(nums, list) and len(nums) != 0 \
             and all(isinstance(item, (int, float)) for item in nums):
         return min(nums), max(nums)
     return 'ValueError'
@@ -20,6 +20,8 @@ def flatten(mat):
             result.extend(item)
         return result
     return 'TypeError'
+
+
 print('min_max')
 print(min_max([3, -1, 5, 5, 0]))
 print(min_max([42]))
