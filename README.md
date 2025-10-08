@@ -162,7 +162,7 @@ def col_sums(mat):
         result.append(sum_col)
     return result
 ```
-![Картинка 2.2](./images/lab02/arrays.png)
+![Картинка 2.2](./images/lab02/matrix.png)
 
 ### Задание 3
 ```python
