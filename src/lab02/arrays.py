@@ -1,18 +1,18 @@
-def min_max(nums):
+def min_max(nums: list[float | int]) -> tuple[float | int, float | int]:
     if isinstance(nums, list) and len(nums) != 0 \
             and all(isinstance(item, (int, float)) for item in nums):
         return min(nums), max(nums)
     return 'ValueError'
 
 
-def unique_sorted(nums):
+def unique_sorted(nums: list[float | int]) -> list[float | int]:
     if isinstance(nums, list) and len(nums) != 0 \
             and all(isinstance(item, (int, float)) for item in nums):
         return sorted(set(nums))
     return nums
 
 
-def flatten(mat):
+def flatten(mat: list[list | tuple]) -> list:
     if isinstance(mat, (list, tuple)) and len(mat) != 0 \
             and all(isinstance(item, (list, tuple)) for item in mat):
         result = []

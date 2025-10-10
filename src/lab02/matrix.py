@@ -1,4 +1,4 @@
-def transpose(mat):
+def transpose(mat: list[list[float | int]]) -> list[list]:
     if len(mat) == 0:
         return []
     if isinstance(mat, list) and all(isinstance(row, list) for row in mat) and all(
@@ -10,7 +10,7 @@ def transpose(mat):
         return [[mat[j][i] for j in range(len(mat))] for i in range(len(mat[0]))]
 
 
-def row_sums(mat):
+def row_sums(mat: list[list[float | int]]) -> list[float]:
     if len(mat) == 0:
         return []
     if isinstance(mat, list) and all(isinstance(row, list) for row in mat) \
@@ -21,7 +21,7 @@ def row_sums(mat):
         return [sum(item) for item in mat]
 
 
-def col_sums(mat):
+def col_sums(mat: list[list[float | int]]) -> list[float]:
     if len(mat) == 0:
         return []
     if isinstance(mat, list) and all(isinstance(row, list) for row in mat) \

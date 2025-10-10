@@ -1,4 +1,4 @@
-def format_record(rec):
+def format_record(rec: tuple[str, str, float]) -> str:
     if len(rec[0]) == 0 or len(rec[1]) == 0:
         '''пустое ФИО и пустая группа имеет аргумент правильного типа поэтому ValueError'''
         return 'ValueError'

@@ -96,21 +96,21 @@ print(s[first_letter_pos:-1:second_letter_pos - first_letter_pos] + '.')
 
 ### Задание 1
 ```python
-def min_max(nums):
-    if isinstance(nums, list) and len(nums)!=0\
+def min_max(nums: list[float | int]) -> tuple[float | int, float | int]:
+    if isinstance(nums, list) and len(nums) != 0 \
             and all(isinstance(item, (int, float)) for item in nums):
         return min(nums), max(nums)
     return 'ValueError'
 
 
-def unique_sorted(nums):
+def unique_sorted(nums: list[float | int]) -> list[float | int]:
     if isinstance(nums, list) and len(nums) != 0 \
             and all(isinstance(item, (int, float)) for item in nums):
         return sorted(set(nums))
     return nums
 
 
-def flatten(mat):
+def flatten(mat: list[list | tuple]) -> list:
     if isinstance(mat, (list, tuple)) and len(mat) != 0 \
             and all(isinstance(item, (list, tuple)) for item in mat):
         result = []
@@ -125,7 +125,7 @@ def flatten(mat):
 
 ### Задание 2
 ```python
-def transpose(mat):
+def transpose(mat: list[list[float | int]]) -> list[list]:
     if len(mat) == 0:
         return []
     if isinstance(mat, list) and all(isinstance(row, list) for row in mat) and all(
@@ -137,7 +137,7 @@ def transpose(mat):
         return [[mat[j][i] for j in range(len(mat))] for i in range(len(mat[0]))]
 
 
-def row_sums(mat):
+def row_sums(mat: list[list[float | int]]) -> list[float]:
     if len(mat) == 0:
         return []
     if isinstance(mat, list) and all(isinstance(row, list) for row in mat) \
@@ -148,7 +148,7 @@ def row_sums(mat):
         return [sum(item) for item in mat]
 
 
-def col_sums(mat):
+def col_sums(mat: list[list[float | int]]) -> list[float]:
     if len(mat) == 0:
         return []
     if isinstance(mat, list) and all(isinstance(row, list) for row in mat) \
@@ -169,7 +169,7 @@ def col_sums(mat):
 
 ### Задание 3
 ```python
-def format_record(rec):
+def format_record(rec: tuple[str, str, float]) -> str:
     if len(rec[0]) == 0 or len(rec[1]) == 0:
         '''пустое ФИО и пустая группа имеет аргумент правильного типа поэтому ValueError'''
         return 'ValueError'
@@ -194,7 +194,7 @@ def format_record(rec):
 ```python
 import re
 
-def normalize(text, casefold=True, yo2e=True):
+def normalize(text: str, *, casefold: bool = True, yo2e: bool = True):
     if isinstance(text, str) and isinstance(casefold, bool) and isinstance(yo2e, bool):
         if casefold:
             text = text.casefold()
@@ -205,23 +205,45 @@ def normalize(text, casefold=True, yo2e=True):
             text = text.replace('\t', ' ').replace('\n', ' ').replace('\r', ' ')
     return ' '.join(text.split())
 
-def tokenize(text):
+def tokenize(text: str) -> list[str]:
     if isinstance(text, str):
         text = re.sub(r'[^\w-]', ' ', text).split()
     return text
 
-def count_freq(tokens):
+def count_freq(tokens: list[str]) -> dict[str, int]:
     if isinstance(tokens, list) and all(isinstance(item, str) for item in tokens):
         character_counting = dict()
         for i in (sorted(set(tokens))):
             character_counting[i] = tokens.count(i)
     return character_counting
 
-def top_n(freq, n=5):
+def top_n(freq: dict[str, int], n: int = 5) -> list[tuple[str, int]]:
     if isinstance(freq, dict) \
             and all(isinstance(key, str) and isinstance(value, int) for key, value in freq.items()):
         sorted_items = sorted(freq.items(), key=lambda x: (-x[1], x[0]))
     return sorted_items[:n]
 
 ```
+![Картинка 3.1](./images/lab03/text2.png)
 ![Картинка 3.1](./images/lab03/text.png)
+
+### Задание 2
+```python
+import sys
+from src.lib.moduls import count_freq,  top_n, tokenize
+data = sys.stdin.read()
+data = [i.casefold() for i in tokenize(data)]
+print(f'Всего слов: {len(data)}\nУникальных слов: {len(set(data))}')
+f=False
+if f:
+    longest_word = len(max(count_freq(data), key=len))+5
+    print(f'слово{(longest_word-5) * ' '}| частота')
+    print((longest_word + 9) * '-')
+    print('\n'.join([word[0] + ' ' * (longest_word-len(word[0])) + '| ' + str(word[1]) for word in top_n(count_freq(data))]))
+else:
+    print(f'Топ-5:\n{'\n'.join((f'{i[0]}:{i[1]}' for i in top_n(count_freq(data))))}')
+```
+![Картинка 3.2](./images/lab03/text_stats.png)
+![Картинка 3.2](./images/lab03/text_stats2.png)
+
+
