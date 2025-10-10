@@ -119,8 +119,9 @@ def flatten(mat):
         return result
     return 'TypeError'
 ```
-![Картинка 2.1](./images/lab02/arrays.png)
 ![Картинка 2.1](./images/lab02/arrays2.png)
+![Картинка 2.1](./images/lab02/arrays.png)
+
 
 ### Задание 2
 ```python
@@ -163,6 +164,7 @@ def col_sums(mat):
         result.append(sum_col)
     return result
 ```
+![Картинка 2.2](./images/lab02/matrix2.png)
 ![Картинка 2.2](./images/lab02/matrix.png)
 
 ### Задание 3
@@ -182,6 +184,7 @@ def format_record(rec):
                 full_name += initials[0].upper() + '.'
             return f'{full_name}, гр. {rec[1]}, GPA {"{:.2f}".format(rec[2])}'
 ```
+![Картинка 2.3](./images/lab02/tuples2.png)
 ![Картинка 2.3](./images/lab02/tuples.png)
 
 
