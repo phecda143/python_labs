@@ -230,9 +230,12 @@ def top_n(freq: dict[str, int], n: int = 5) -> list[tuple[str, int]]:
 ### Задание 2
 ```python
 import sys
-from src.lib.moduls import count_freq,  top_n, tokenize
+'''добавляем нужный нам путь в список путей, где Python ищет модули при импорте'''
+sys.path.append('C:/Users/matve/PycharmProjects/python_labs/src/lib')
+'''импортируем созданные ранее функции'''
+from src.lib.moduls import normalize, tokenize, count_freq, top_n
 data = sys.stdin.read()
-data = [i.casefold() for i in tokenize(data)]
+data = [i.casefold() for i in tokenize(normalize(data))]
 print(f'Всего слов: {len(data)}\nУникальных слов: {len(set(data))}')
 f=False
 if f:

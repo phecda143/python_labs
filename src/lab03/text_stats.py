@@ -1,7 +1,10 @@
 import sys
-from src.lib.moduls import count_freq,  top_n, tokenize
+'''добавляем нужный нам путь в список путей, где Python ищет модули при импорте'''
+sys.path.append('C:/Users/matve/PycharmProjects/python_labs/src/lib')
+'''импортируем созданные ранее функции'''
+from src.lib.moduls import normalize, tokenize, count_freq, top_n
 data = sys.stdin.read()
-data = [i.casefold() for i in tokenize(data)]
+data = [i.casefold() for i in tokenize(normalize(data))]
 print(f'Всего слов: {len(data)}\nУникальных слов: {len(set(data))}')
 f=False
 if f:
@@ -11,3 +14,5 @@ if f:
     print('\n'.join([word[0] + ' ' * (longest_word-len(word[0])) + '| ' + str(word[1]) for word in top_n(count_freq(data))]))
 else:
     print(f'Топ-5:\n{'\n'.join((f'{i[0]}:{i[1]}' for i in top_n(count_freq(data))))}')
+
+#hello world hello python test world hello
