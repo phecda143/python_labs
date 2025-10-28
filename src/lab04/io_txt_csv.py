@@ -35,7 +35,7 @@ def read_text(path: str | Path, encoding: str = "utf-8") -> str:
         raise FileNotFoundError(f"Файл не найден") from e
 
 
-print(read_text('C:/Users/matve/PycharmProjects/python_labs/data/lab04/input.txt'))
+#print(read_text('C:/Users/matve/PycharmProjects/python_labs/data/lab04/input.txt'))
 
 
 def write_csv(rows: list[tuple | list], path: str | Path, header: tuple[str, ...] | None = None) -> None:
@@ -71,4 +71,4 @@ def write_csv(rows: list[tuple | list], path: str | Path, header: tuple[str, ...
             w.writerow(r)
 
 
-write_csv([("word","count"),("test",3)], "C:/Users/matve/PycharmProjects/python_labs/data/lab04/check.csv")
+#write_csv([("word","count"),("test",3)], "C:/Users/matve/PycharmProjects/python_labs/data/lab04/check.csv")
