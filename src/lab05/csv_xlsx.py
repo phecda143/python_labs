@@ -29,4 +29,4 @@ def csv_to_xlsx(csv_path: str, xlsx_path: str) -> None:
 
 
 csv_to_xlsx('C:/Users/user/PycharmProjects/python_labs/data/lab05/samples/cities.csv',
-            'C:/Users/user/PycharmProjects/python_labs/data/lab05/out/people.xlsx')
+            '/data/lab05/out/cities.xlsx')
