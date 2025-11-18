@@ -29,8 +29,8 @@ def json_to_csv(json_path: str, csv_path: str) -> None:
         raise FileNotFoundError("Файл не найден")
 
 
-json_to_csv('C:/Users/user/PycharmProjects/python_labs/data/lab05/samples/people.json',
-            'C:/Users/user/PycharmProjects/python_labs/data/lab05/out/people_from_json.csv')
+# json_to_csv('C:/Users/user/PycharmProjects/python_labs/data/lab05/samples/people.json',
+#             'C:/Users/user/PycharmProjects/python_labs/data/lab05/out/people_from_json.csv')
 
 
 def csv_to_json(csv_path: str, json_path: str) -> None:
@@ -53,5 +53,5 @@ def csv_to_json(csv_path: str, json_path: str) -> None:
         raise FileNotFoundError("Файл не найден")
 
 
-csv_to_json('C:/Users/user/PycharmProjects/python_labs/data/lab05/samples/people.csv',
-            'C:/Users/user/PycharmProjects/python_labs/data/lab05/out/people_from_csv.json')
+# csv_to_json('C:/Users/user/PycharmProjects/python_labs/data/lab05/samples/people.csv',
+#             'C:/Users/user/PycharmProjects/python_labs/data/lab05/out/people_from_csv.json')

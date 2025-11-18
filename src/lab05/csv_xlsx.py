@@ -28,5 +28,5 @@ def csv_to_xlsx(csv_path: str, xlsx_path: str) -> None:
         wb.save(xlsx_path)
 
 
-csv_to_xlsx('C:/Users/user/PycharmProjects/python_labs/data/lab05/samples/cities.csv',
-            '/data/lab05/out/cities.xlsx')
+# csv_to_xlsx('C:/Users/user/PycharmProjects/python_labs/data/lab05/samples/cities.csv',
+#             '/data/lab05/out/cities.xlsx')

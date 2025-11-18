@@ -541,3 +541,116 @@ csv_to_xlsx('C:/Users/user/PycharmProjects/python_labs/data/lab05/samples/cities
 ```
 ![Картинка 5.3](./images/lab05/cities_csv.png)
 ![Картинка 5.4](./images/lab05/cities_xlsx.png)
+
+
+
+## Лабораторная работа 6
+
+### Задание 1 - cli_text
+```python
+import argparse
+from pathlib import Path
+# from src.lib.moduls import text_stats
+import sys
+
+current_dir = Path(__file__).parent
+project_root = current_dir.parent.parent  # поднимаемся на два уровня вверх
+sys.path.append(str(project_root))
+# теперь импортируем относительно корня проекта
+from src.lib.moduls import *
+
+
+def main():
+    parser = argparse.ArgumentParser(description="CLI‑утилиты лабораторной №6")
+    subparsers = parser.add_subparsers(dest="command")
+
+    # подкоманда cat
+    cat_parser = subparsers.add_parser("cat", help="Вывести содержимое файла")
+    cat_parser.add_argument("--input", required=True)
+    cat_parser.add_argument("-n", action="store_true", help="Нумеровать строки")
+
+    # подкоманда stats
+    stats_parser = subparsers.add_parser("stats", help="Частоты слов")
+    stats_parser.add_argument("--input", required=True)
+    stats_parser.add_argument("--top", type=int, default=5)
+
+    args = parser.parse_args()
+    try:
+        path_input = Path(args.input)
+        sample = path_input.read_text(encoding='utf-8')
+
+        if args.command == "cat":
+            """ Реализация команды cat """
+            for num, word in enumerate(sample.split('\n')):
+                if args.n:
+                    print(num + 1, word)
+                else:
+                    print(word)
+        elif args.command == "stats":
+            """ Реализация команды stats """
+            print(
+                f'Всего слов: {len(tokenize(normalize(sample)))}\nУникальных слов: {len(count_freq(tokenize(normalize(sample))))}')
+            top_words = top_n(count_freq(tokenize(normalize(sample))))
+            print("Топ-5:")
+            for word, count in top_words:
+                print(f"{word}: {count}")
+    except FileNotFoundError:
+        raise FileNotFoundError("Нет входного файла")
+
+
+if __name__ == "__main__":
+    main()
+```
+![Картинка 6.1](./images/lab06/cli_text1.png)
+![Картинка 6.2](./images/lab06/cli_text2.png)
+![Картинка 6.3](./images/lab06/cli_text3.png)
+
+### Задание 2 - cli_convert
+```python
+import argparse
+from pathlib import Path
+import sys
+
+current_dir = Path(__file__).parent
+project_root = current_dir.parent.parent  # поднимаемся на два уровня вверх
+sys.path.append(str(project_root))
+# теперь импортируем относительно корня проекта
+from src.lab05.json_csv import json_to_csv, csv_to_json
+from src.lab05.csv_xlsx import csv_to_xlsx
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Конвертеры данных")
+    sub = parser.add_subparsers(dest="cmd")
+
+    p1 = sub.add_parser("json2csv")
+    p1.add_argument("--in", dest="input", required=True)
+    p1.add_argument("--out", dest="output", required=True)
+
+    p2 = sub.add_parser("csv2json")
+    p2.add_argument("--in", dest="input", required=True)
+    p2.add_argument("--out", dest="output", required=True)
+
+    p3 = sub.add_parser("csv2xlsx")
+    p3.add_argument("--in", dest="input", required=True)
+    p3.add_argument("--out", dest="output", required=True)
+
+    args = parser.parse_args()
+
+    try:
+        if args.cmd == 'json2csv':
+            json_to_csv(args.input, args.output)
+        if args.cmd == 'csv2json':
+            csv_to_json(args.input, args.output)
+        if args.cmd == 'csv2xlsx':
+            csv_to_xlsx(args.input, args.output)
+    except FileNotFoundError:
+        raise FileNotFoundError('Нет входного файла')
+
+
+if __name__ == "__main__":
+    main()
+```
+![Картинка 6.4](./images/lab06/cli_convert1.png)
+![Картинка 6.5](./images/lab06/cli_convert2.png)
+![Картинка 6.6](./images/lab06/cli_convert3.png)
