@@ -1,5 +1,6 @@
 import re
 
+
 def normalize(text, casefold=True, yo2e=True):
     if isinstance(text, str) and isinstance(casefold, bool) and isinstance(yo2e, bool):
         if casefold:
@@ -11,10 +12,12 @@ def normalize(text, casefold=True, yo2e=True):
             text = text.replace('\t', ' ').replace('\n', ' ').replace('\r', ' ')
     return ' '.join(text.split())
 
+
 def tokenize(text):
     if isinstance(text, str):
         text = re.sub(r'[^\w-]', ' ', text).split()
     return text
+
 
 def count_freq(tokens):
     if isinstance(tokens, list) and all(isinstance(item, str) for item in tokens):
@@ -23,8 +26,29 @@ def count_freq(tokens):
             character_counting[i] = tokens.count(i)
     return character_counting
 
+
 def top_n(freq, n=5):
     if isinstance(freq, dict) \
             and all(isinstance(key, str) and isinstance(value, int) for key, value in freq.items()):
         sorted_items = sorted(freq.items(), key=lambda x: (-x[1], x[0]))
     return sorted_items[:n]
+
+
+def text_stats(data):
+    '''добавляем нужный нам путь в список путей, где Python ищет модули при импорте'''
+    '''импортируем созданные ранее функции'''
+
+    print(f'Всего слов: {len(data)}\nУникальных слов: {len(set(data))}')
+    f = False
+    if f:
+        longest_word = len(max(count_freq(data), key=len)) + 5
+        print(f'слово{(longest_word - 5) * " "}| частота')
+        print((longest_word + 9) * '-')
+        print('\n'.join(
+            [word[0] + ' ' * (longest_word - len(word[0])) + '| ' + str(word[1]) for word in top_n(count_freq(data))]))
+    else:
+        top_words = top_n(count_freq(data))
+        print("Топ-5:")
+        for word, count in top_words:
+            print(f"{word}: {count}")
+

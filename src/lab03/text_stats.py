@@ -1,12 +1,14 @@
 import sys
+from src.lib.moduls import normalize, tokenize, count_freq, top_n
+
+data = sys.stdin.read()
+data = [i.casefold() for i in tokenize(normalize(data))]
 
 
-def main():
+def main(data):
     '''добавляем нужный нам путь в список путей, где Python ищет модули при импорте'''
     '''импортируем созданные ранее функции'''
-    from src.lib.moduls import normalize, tokenize, count_freq, top_n
-    data = sys.stdin.read()
-    data = [i.casefold() for i in tokenize(normalize(data))]
+
     print(f'Всего слов: {len(data)}\nУникальных слов: {len(set(data))}')
     f = False
     if f:
@@ -23,5 +25,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main(data)
 # hello world hello python test world hello
