@@ -54,7 +54,7 @@ def test_top_n_tie_breaker():  # тест проверяет top_n с одина
     freq = count_freq(["bb", "aa", "bb", "aa", "cc"])
     assert top_n(freq, 3) == [("aa", 2), ("bb", 2), ("cc", 1)]
 ```
-![Картинка 7.1](C:\Users\user\PycharmProjects\python_labs\images\lab07\test_text.png)
+<img src="https://raw.githubusercontent.com/phecda143/python_labs/main/images/lab07/test_text.png" alt="Картинка 7.1" />
 
 ### B. Тесты для src/lab05/json_csv.py
 ```python
@@ -134,8 +134,8 @@ def test_csv_to_json_file_not_found():
     with pytest.raises(FileNotFoundError):
         csv_to_json("nonexistent.csv", "output.json")
 ```
-![Картинка 7.2](C:\Users\user\PycharmProjects\python_labs\images\lab07\test_json_csv.png)
+<img src="https://raw.githubusercontent.com/phecda143/python_labs/main/images/lab07/test_json_csv.png" alt="Картинка 7.2" />
 
 ### C. Стиль кода (black)
-![Картинка 7.3](C:\Users\user\PycharmProjects\python_labs\images\lab07\black1.png)
-![Картинка 7.4](C:\Users\user\PycharmProjects\python_labs\images\lab07\black2.png)
+<img src="https://raw.githubusercontent.com/phecda143/python_labs/main/images/lab07/black1.png" alt="Картинка 7.3" />
+<img src="https://raw.githubusercontent.com/phecda143/python_labs/main/images/lab07/black2.png" alt="Картинка 7.4" />
