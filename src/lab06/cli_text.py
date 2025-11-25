@@ -1,12 +1,5 @@
 import argparse
 from pathlib import Path
-# from src.lib.moduls import text_stats
-import sys
-
-current_dir = Path(__file__).parent
-project_root = current_dir.parent.parent  # поднимаемся на два уровня вверх
-sys.path.append(str(project_root))
-# теперь импортируем относительно корня проекта
 from src.lib.moduls import *
 
 
@@ -27,19 +20,20 @@ def main():
     args = parser.parse_args()
     try:
         path_input = Path(args.input)
-        sample = path_input.read_text(encoding='utf-8')
+        sample = path_input.read_text(encoding="utf-8")
 
         if args.command == "cat":
-            """ Реализация команды cat """
-            for num, word in enumerate(sample.split('\n')):
+            """Реализация команды cat"""
+            for num, word in enumerate(sample.split("\n")):
                 if args.n:
                     print(num + 1, word)
                 else:
                     print(word)
         elif args.command == "stats":
-            """ Реализация команды stats """
+            """Реализация команды stats"""
             print(
-                f'Всего слов: {len(tokenize(normalize(sample)))}\nУникальных слов: {len(count_freq(tokenize(normalize(sample))))}')
+                f"Всего слов: {len(tokenize(normalize(sample)))}\nУникальных слов: {len(count_freq(tokenize(normalize(sample))))}"
+            )
             top_words = top_n(count_freq(tokenize(normalize(sample))))
             print("Топ-5:")
             for word, count in top_words:

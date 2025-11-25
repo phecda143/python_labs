@@ -1,11 +1,4 @@
 import argparse
-from pathlib import Path
-import sys
-
-current_dir = Path(__file__).parent
-project_root = current_dir.parent.parent  # поднимаемся на два уровня вверх
-sys.path.append(str(project_root))
-# теперь импортируем относительно корня проекта
 from src.lab05.json_csv import json_to_csv, csv_to_json
 from src.lab05.csv_xlsx import csv_to_xlsx
 
@@ -29,14 +22,14 @@ def main():
     args = parser.parse_args()
 
     try:
-        if args.cmd == 'json2csv':
+        if args.cmd == "json2csv":
             json_to_csv(args.input, args.output)
-        if args.cmd == 'csv2json':
+        if args.cmd == "csv2json":
             csv_to_json(args.input, args.output)
-        if args.cmd == 'csv2xlsx':
+        if args.cmd == "csv2xlsx":
             csv_to_xlsx(args.input, args.output)
     except FileNotFoundError:
-        raise FileNotFoundError('Нет входного файла')
+        raise FileNotFoundError("Нет входного файла")
 
 
 if __name__ == "__main__":

@@ -6,17 +6,23 @@ data = [i.casefold() for i in tokenize(normalize(data))]
 
 
 def main(data):
-    '''добавляем нужный нам путь в список путей, где Python ищет модули при импорте'''
-    '''импортируем созданные ранее функции'''
+    """добавляем нужный нам путь в список путей, где Python ищет модули при импорте"""
+    """импортируем созданные ранее функции"""
 
-    print(f'Всего слов: {len(data)}\nУникальных слов: {len(set(data))}')
+    print(f"Всего слов: {len(data)}\nУникальных слов: {len(set(data))}")
     f = False
     if f:
         longest_word = len(max(count_freq(data), key=len)) + 5
         print(f'слово{(longest_word - 5) * " "}| частота')
-        print((longest_word + 9) * '-')
-        print('\n'.join(
-            [word[0] + ' ' * (longest_word - len(word[0])) + '| ' + str(word[1]) for word in top_n(count_freq(data))]))
+        print((longest_word + 9) * "-")
+        print(
+            "\n".join(
+                [
+                    word[0] + " " * (longest_word - len(word[0])) + "| " + str(word[1])
+                    for word in top_n(count_freq(data))
+                ]
+            )
+        )
     else:
         top_words = top_n(count_freq(data))
         print("Топ-5:")
@@ -24,6 +30,6 @@ def main(data):
             print(f"{word}: {count}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main(data)
 # hello world hello python test world hello
