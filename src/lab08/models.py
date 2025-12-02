@@ -18,8 +18,8 @@ class Student:
         if date.today().year < int(self.birthdate.split('-')[0]):
             raise ValueError('Год рождения не может быть больше чем текущий год')
 
-        if not (0 <= self.gpa <= 10):
-            raise ValueError('gpa должен находиться в промежутке от 0 до 10')
+        if not (0.0 <= self.gpa <= 5.0):
+            raise ValueError('gpa должен находиться в промежутке от 0 до 5')
 
         if isinstance(self.gpa, int):
             raise ValueError('gpa должен быть в формате float')
@@ -51,17 +51,17 @@ class Student:
         return f'ФИО студента: {self.fio}\n Дата рождения: {self.birthdate}\n Возраст: {self.age()}\n Группа: {self.gpa}\n GPA: {self.gpa}'
 
 
-if __name__ == '__main__':
-    student = Student(
-        fio = 'Александров Александр Александрович',
-        birthdate = '2006-01-25',
-        group = 'BIVT-25-2',
-        gpa = 67
-    )
-    print(student.to_dict()) # вывод в виде словаря
-    print()
-    print(student.from_dict(student.to_dict())) # вывод в красивом виде из словаря
-    print()
-    print(student.age()) # вывод полных лет
-    print()
-    print(student) # вывод в красивом виде
+# if __name__ == '__main__':
+#     student = Student(
+#         fio = 'Александров Александр Александрович',
+#         birthdate = '2006-01-25',
+#         group = 'BIVT-25-2',
+#         gpa = 4.7
+#     )
+#     print(student.to_dict()) # вывод в виде словаря
+#     print()
+#     print(student.from_dict(student.to_dict())) # вывод в красивом виде из словаря
+#     print()
+#     print(student.age()) # вывод полных лет
+#     print()
+#     print(student) # вывод в красивом виде

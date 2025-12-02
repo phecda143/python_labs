@@ -808,10 +808,10 @@ class Student:
 
         if date.today().year < int(self.birthdate.split('-')[0]):
             raise ValueError('Год рождения не может быть больше чем текущий год')
-        
-        if not (0 <= self.gpa <= 10):
-            raise ValueError('gpa должен находиться в промежутке от 0 до 10')
-        
+
+        if not (0.0 <= self.gpa <= 5.0):
+            raise ValueError('gpa должен находиться в промежутке от 0 до 5')
+
         if isinstance(self.gpa, int):
             raise ValueError('gpa должен быть в формате float')
 
@@ -863,3 +863,41 @@ if __name__ == '__main__':
 ![Картинка 8.2](./images/lab08/models2.png)
 ![Картинка 8.3](./images/lab08/models3.png)
 ![Картинка 8.4](./images/lab08/models4.png)
+
+
+### Задание 2 B. Реализовать модуль serialize.py
+```python
+import json
+from pathlib import Path
+from models import Student
+
+
+students_data = [
+    Student('Ильин Илья Ильич', '2005-01-02', 'BIVT-24-3', 3.6),
+    Student('Федин Фёдор Фёдорович', '2006-08-23', 'BIVT-21-16', 4.5)
+]
+
+def students_to_json(students, path):
+    p = Path(path)
+    data = [s.to_dict() for s in students]
+    with open(str(p), 'w', encoding='utf-8') as file:
+        json.dump(data, file, ensure_ascii=False, indent=2)
+
+def students_from_json(path):
+    p = Path(path)
+    with open(str(p), 'r') as file:
+        data = json.load(file)
+    print([Student.from_dict(item) for item in data])
+
+
+if __name__ == '__main__':
+    students_to_json(students_data, 'C:/Users/matve/PycharmProjects/python_labs/data/lab08/students_output.json')
+    students_from_json('C:/Users/matve/PycharmProjects/python_labs/data/lab08/students_input.json')
+```
+#### students_from_json
+![Картинка 8.5](./images/lab08/serialize1.png)
+![Картинка 8.6](./images/lab08/serialize2.png)
+#### students_to_json
+![Картинка 8.7](./images/lab08/serialize3.png)
+
+
