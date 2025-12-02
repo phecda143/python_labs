@@ -783,3 +783,83 @@ def test_csv_to_json_file_not_found():
 ### C. Стиль кода (black)
 ![Картинка 7.3](./images/lab07/black1.png)
 ![Картинка 7.4](./images/lab07/black2.png)
+
+
+## Лабораторная работа 8
+
+### Задание 1 A. Реализовать класс Student (models.py)
+```python
+from dataclasses import dataclass
+from datetime import datetime, date
+
+
+@dataclass
+class Student:
+    fio: str
+    birthdate: str
+    group: str
+    gpa: float
+
+    def __post_init__(self):
+        try:
+            datetime.strptime(self.birthdate, '%Y-%m-%d')
+        except ValueError:
+            raise ValueError('дата рождения должна быть в формате YYYY-MM-DD')
+
+        if date.today().year < int(self.birthdate.split('-')[0]):
+            raise ValueError('Год рождения не может быть больше чем текущий год')
+        
+        if not (0 <= self.gpa <= 10):
+            raise ValueError('gpa должен находиться в промежутке от 0 до 10')
+        
+        if isinstance(self.gpa, int):
+            raise ValueError('gpa должен быть в формате float')
+
+    def age(self) -> int:
+        '''возвращает количество полных лет'''
+        return date.today().year - int(self.birthdate.split('-')[0])
+
+    def to_dict(self) -> dict:
+        '''сериализация объекта в словарь'''
+        return {
+            'fio': self.fio,
+            'birthdate': self.birthdate,
+            'group': self.group,
+            'gpa': self.gpa
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        return cls(
+            fio=data['fio'],
+            birthdate=data['birthdate'],
+            group=data['group'],
+            gpa=data['gpa']
+        )
+
+    def __str__(self):
+        '''красивый вывод'''
+        return f'ФИО студента: {self.fio}\n Дата рождения: {self.birthdate}\n Возраст: {self.age()}\n Группа: {self.gpa}\n GPA: {self.gpa}'
+
+
+if __name__ == '__main__':
+    student = Student(
+        fio = 'Александров Александр Александрович',
+        birthdate = '2006-01-25',
+        group = 'BIVT-25-2',
+        gpa = 4
+    )
+    print(student.to_dict()) # вывод в виде словаря
+    print()
+    print(student.from_dict(student.to_dict())) # вывод в красивом виде из словаря
+    print()
+    print(student.age()) # вывод полных лет
+    print()
+    print(student) # вывод в красивом виде
+
+```
+![Картинка 8.1](./images/lab08/models1.png)
+#### Валидация ошибок
+![Картинка 8.2](./images/lab08/models2.png)
+![Картинка 8.3](./images/lab08/models3.png)
+![Картинка 8.4](./images/lab08/models4.png)
