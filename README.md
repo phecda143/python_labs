@@ -867,37 +867,128 @@ if __name__ == '__main__':
 
 ### Задание 2 B. Реализовать модуль serialize.py
 ```python
-import json
-from pathlib import Path
-from models import Student
+import csv
+import os
+from lab08.models import Student
+
+headers = ['fio', 'birthdate', 'group', 'gpa']
 
 
-students_data = [
-    Student('Ильин Илья Ильич', '2005-01-02', 'BIVT-24-3', 3.6),
-    Student('Федин Фёдор Фёдорович', '2006-08-23', 'BIVT-21-16', 4.5)
-]
+class Group:
+    def __init__(self, storage_path: str):
+        self.storage_path = storage_path
+        if not os.path.exists(self.storage_path):
+            self._ensure_storage_exists()
 
-def students_to_json(students, path):
-    p = Path(path)
-    data = [s.to_dict() for s in students]
-    with open(str(p), 'w', encoding='utf-8') as file:
-        json.dump(data, file, ensure_ascii=False, indent=2)
+    def _ensure_storage_exists(self):
+        '''создать файл с заголовком, если его ещё нет'''
+        with open(self.storage_path, 'w', newline='', encoding='utf-8') as file:
+            csv.writer(file).writerow(headers)
 
-def students_from_json(path):
-    p = Path(path)
-    with open(str(p), 'r') as file:
-        data = json.load(file)
-    print([Student.from_dict(item) for item in data])
+    def _read_all(self):
+        '''прочитать все строки из CSV'''
+        students = []
+        with open(self.storage_path, 'r', encoding='utf-8') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                students.append(
+                    Student(fio=row["fio"], birthdate=row["birthdate"], group=row["group"], gpa=float(row["gpa"]), )
+                )
+        return students
+
+    def _write(self, students):
+        with open(self.storage_path, 'w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            writer.writerow(headers)
+            for student in students:
+                writer.writerow([student.fio, student.birthdate, student.group, student.gpa])
+
+
+    def list(self):
+        '''вернуть всех студентов в виде списка Student'''
+        return self._read_all()
+
+    def add(self, student: Student):
+        '''добавить нового студента в CSV'''
+        students = self._read_all()
+
+        if any(student.fio == st.fio for st in students):
+            raise ValueError('Такой студент уже есть')
+
+        with open(self.storage_path, 'a', newline='', encoding='utf-8') as file:
+            csv.writer(file).writerow([student.fio, student.birthdate, student.group, student.gpa])
+
+    def find(self, substr: str):
+        '''найти студентов по подстроке в fio'''
+        students = self._read_all()
+        for student in students:
+            if substr.lower() in student.fio.lower():
+                return student
+            raise ValueError('Извините, такого студента нет в базе')
+
+    def remove(self, fio: str):
+        '''удалить запись(и) с данным fio'''
+        students = self._read_all()
+        new_list_students = []
+        removed_count = 0
+
+        for st in students:
+            if st.fio.lower() != fio.lower():
+                new_list_students.append(st)
+            else:
+                removed_count += 1
+
+        if removed_count == 0:
+            raise ValueError(f'студента с ФИО: {fio} нет в базе')
+
+        self._write(new_list_students)
+
+    def update(self, fio, **fields):
+        '''обновить поля существующего студента'''
+        students = self._read_all()
+        update = False
+        for st in students:
+            if st.fio.lower() == fio.lower():
+                for key, value in fields.items():
+                    if 'fio' == key:
+                        st.fio = value
+                    if 'birthdate' == key:
+                        st.birthdate = value
+                    if 'group' == key:
+                        st.group = value
+                    if 'gpa' == key:
+                        st.gpa = float(value)
+                update = True
+                break
+        if update:
+            self._write(students)
+            return True
+
+        return False
 
 
 if __name__ == '__main__':
-    students_to_json(students_data, 'C:/Users/matve/PycharmProjects/python_labs/data/lab08/students_output.json')
-    students_from_json('C:/Users/matve/PycharmProjects/python_labs/data/lab08/students_input.json')
+    student = Group('C:/Users/user/PycharmProjects/python_labs/data/lab09/students.csv')
+    print(student.update('Ильин Илья Ильич', birthdate='2015-04-06', group='NEWGROUP'))
+
 ```
-#### students_from_json
-![Картинка 8.5](./images/lab08/serialize1.png)
-![Картинка 8.6](./images/lab08/serialize2.png)
-#### students_to_json
-![Картинка 8.7](./images/lab08/serialize3.png)
+#### если файла students.csv нет, то создается этот файл с соответствующими заголовками
+![Картинка 9.1](./images/lab09/group1.png)
+#### вернуть всех студентов в виде списка Student
+![Картинка 9.2](./images/lab09/group2.png)
+#### добавить нового студента + валидация ошибки если студент с таким именем уже есть в базе
+![Картинка 9.3](./images/lab09/group3.png)
+#### найти студента по имени + валидация ошибки если такого студента нет в базе
+![Картинка 9.4](./images/lab09/group4.png)
+#### удаление данных студента + валидация ошибки если такого студента нет в базе
+![Картинка 9.5](./images/lab09/group5.png)
+#### обновление данных студента
+![Картинка 9.6](./images/lab09/group6.png)
 
-
+#### students.csv
+```
+fio,birthdate,group,gpa
+Иванов Иван,2003-10-10,SE-01,4.3
+Ильин Илья Ильич,2005-01-02,BIVT-24-3,3.6
+Петров Пётр Петрович,2012-11-23,BIVT-21-16,4.5
+```

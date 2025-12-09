@@ -8,11 +8,13 @@ students_data = [
     Student('Федин Фёдор Фёдорович', '2006-08-23', 'BIVT-21-16', 4.5)
 ]
 
+
 def students_to_json(students, path):
     p = Path(path)
     data = [s.to_dict() for s in students]
     with open(str(p), 'w', encoding='utf-8') as file:
         json.dump(data, file, ensure_ascii=False, indent=2)
+
 
 def students_from_json(path):
     p = Path(path)
