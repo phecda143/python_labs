@@ -1032,3 +1032,208 @@ fio,birthdate,group,gpa
 Ильин Илья Ильич,2005-01-02,BIVT-24-3,3.6
 Петров Пётр Петрович,2012-11-23,BIVT-21-16,4.5
 ```
+
+
+## Лабораторная работа 10
+
+- [10 лабораторная](src/lab10/README.md) - Теория
+
+### Задание A. Реализовать Stack и Queue (src/lab10/structures.py)
+```python
+from collections import deque
+
+
+class Stack:
+    def __init__(self):
+        # внутреннее хранилище стека
+        self._data = []
+
+    def push(self, item):
+        # корректно: добавление в конец списка O(1) амортизированно
+        self._data.append(item)
+
+    def pop(self):
+        # TODO: добавить обработку случая пустого стека (сейчас IndexError от list)
+        if self.is_empty():
+            raise IndexError('Пустой стек')
+        return self._data.pop()
+
+    def peek(self):
+        # Вернуть верхний элемент без удаления.
+        # ошибка: при пустом стеке будет None
+        if self.is_empty():
+            return None
+        return self._data[-1]
+
+    def is_empty(self) -> bool:
+        # Проверить, пуст ли стек
+        # возвратить: True если стек пуст, иначе False
+        return len(self._data) == 0
+
+    def __len__(self):
+        return len(self._data)
+
+
+class Queue:
+    '''Структура данных "Очередь" (FIFO - First In, First Out)
+        Реализация на базе collections.deque'''
+
+    def __init__(self):
+        # Инициализация пустой очереди
+        self._data = deque()
+
+    def enqueue(self, item):
+        # Добавить элемент в конец очереди.
+        self._data.append(item)
+
+    def dequeue(self):
+        # Взять элемент из начала очереди и вернуть его.
+        # Если очередь пустая - IndexError
+        if self.is_empty():
+            raise IndexError('Пустая очередь')
+        return self._data.popleft()
+
+    def peek(self):
+        # Вернуть первый элемент без удаления.
+        if not self.is_empty():
+            return None
+        return self._data[0]
+
+    def is_empty(self) -> bool:
+        # Проверить, пуста ли очередь.
+        return len(self._data) == 0
+
+    def __len__(self):
+        # количество элементов в очереди
+        return len(self._data)
+```
+![Картинка 10.1](./images/lab10/structures1.png)
+![Картинка 10.2](./images/lab10/structures2.png)
+
+### B. Реализовать SinglyLinkedList (src/lab10/linked_list.py)
+```python
+class Node:  # узел односвязного списка.
+    def __init__(self, value, next=None):
+        self.value = value  # значение элемента.
+        self.next = next  # ссылка на следующий узел или None, если это последний узел.
+
+
+class SinglyLinkedList:  # односвязный список, состоящий из узлов Node
+    def __init__(self):
+        self.head: Node | None = None  # первый узел
+        self.tail: Node | None = None  # хвост списка (последний элемент) для ускорения append
+        # ошибка: размер не обновляется
+        self._size = 0
+
+    def append(self, value):
+        """Добавить элемент в конец списка"""
+        new_node = Node(value)
+        if self.head is None:
+            # если список пуст, новый узел становится и head и tail
+            self.head = new_node
+            self.tail = new_node
+        else:
+            # добавляем после tail и обновляем tail
+            self.tail.next = new_node
+            self.tail = new_node
+        self._size += 1
+
+    def prepend(self, value):
+        """Добавить элемент в начало списка"""
+        new_node = Node(value, next=self.head)
+        self.head = new_node
+        self._size += 1
+
+    def insert(self, idx, value):
+        """Вставка по индексу"""
+        if idx < 0 or idx > self._size:
+            raise IndexError(f"Index {idx} out of range [0, {self._size}]")
+
+        if idx == 0:
+            self.prepend(value)
+            return
+
+        if idx == self._size:  # оптимизация для вставки в конец
+            self.append(value)
+            return
+
+        current = self.head
+        # Нет ошибки: idx проверен выше, current гарантированно не None для idx > 0
+        for _ in range(idx - 1):
+            current = current.next
+
+        new_node = Node(value, next=current.next)
+        current.next = new_node
+
+        # обновляем tail если вставили после него
+        if current == self.tail:
+            self.tail = new_node
+
+        self._size += 1  # увеличиваем размер
+
+    def remove(self, value):
+        """Удалить первое вхождение значения value"""
+        if self.head is None:
+            return  # список пуст, нечего удалять
+
+        # eсли удаляем первый элемент
+        if self.head.value == value:
+            self.head = self.head.next
+            self._size -= 1
+            if self.head is None:  # если список стал пустым
+                self.tail = None
+            return
+
+        # ищем элемент для удаления
+        current = self.head
+        while current.next is not None and current.next.value != value:
+            current = current.next
+
+        # если нашли элемент для удаления
+        if current.next is not None:
+            current.next = current.next.next
+            self._size -= 1
+            # если удалили последний элемент
+            if current.next is None:
+                self.tail = current
+
+    def remove_at(self, idx):
+        """удалить элемент по индексу idx"""
+        if idx < 0 or idx >= self._size:
+            raise IndexError(f"Index {idx} out of range [0, {self._size - 1}]")
+
+        if idx == 0:
+            self.head = self.head.next
+            self._size -= 1
+            if self.head is None:  # если список стал пустым
+                self.tail = None
+            return
+
+        current = self.head
+        for _ in range(idx - 1):
+            current = current.next
+
+        # удаляем элемент
+        current.next = current.next.next
+        self._size -= 1
+
+        # обновляем tail если удалили последний элемент
+        if current.next is None:
+            self.tail = current
+
+    def __iter__(self):
+        current = self.head
+        while current is not None:
+            yield current.value
+            current = current.next
+
+    def __len__(self):
+        return self._size
+
+    def __repr__(self):
+        values = list(self)
+        return f"SinglyLinkedList({values})"
+
+```
+
+![Картинка 10.3](./images/lab10/linked_list.png)
