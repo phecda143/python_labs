@@ -132,8 +132,9 @@ class Queue:
         # количество элементов в очереди
         return len(self._data)
 ```
-![Картинка 10.1](./images/lab10/structures1.png)
-![Картинка 10.2](./images/lab10/structures2.png)
+
+<img src="https://github.com/phecda143/python_labs/blob/8703d2a77856a29cc4156442d50fa22dde938961/images/lab10/structures1.png" alt="Картинка 10.1" />
+<img src="https://github.com/phecda143/python_labs/blob/8703d2a77856a29cc4156442d50fa22dde938961/images/lab10/structures2.png" alt="Картинка 10.2" />
 
 ```
 print('===Stack===')
@@ -343,7 +344,7 @@ print(len(lst))  # 4
 print(lst.tail.value if lst.tail else None)  # 100
 ```
 
-![Картинка 10.3](./images/lab10/linked_list.png)
+<img src="https://github.com/phecda143/python_labs/blob/8703d2a77856a29cc4156442d50fa22dde938961/images/lab10/linked_list.png" alt="Картинка 10.3" />
 
 
 ### Выводы по бенчмаркам
